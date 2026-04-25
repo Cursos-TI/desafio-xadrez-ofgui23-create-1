@@ -1,0 +1,100 @@
+#include <stdio.h>
+
+/*
+===========================================================
+NÍVEL MESTRE - MOVIMENTAÇÃO DE PEÇAS DE XADREZ
+===========================================================
+
+- Recursividade: Torre, Bispo e Rainha
+- Loops complexos: Cavalo
+- Loops aninhados: reforço no Bispo e Cavalo
+- Controle de fluxo: break e continue
+===========================================================
+*/
+
+
+// ================= TORRE (recursivo) =================
+void torre(int casas) {
+    if (casas <= 0) return;
+
+    printf("Direita\n");
+    torre(casas - 1);
+}
+
+
+// ================= RAINHA (recursivo + múltiplas direções) =================
+void rainha(int casas, int direcao) {
+    if (casas <= 0) return;
+
+    // 1 = Cima | 2 = Direita | 3 = Diagonal
+    if (direcao == 1) printf("Cima\n");
+    else if (direcao == 2) printf("Direita\n");
+    else if (direcao == 3) printf("Cima Direita\n");
+
+    rainha(casas - 1, direcao);
+}
+
+
+// ================= BISPO (recursivo) =================
+void bispoRec(int casas) {
+    if (casas <= 0) return;
+
+    printf("Cima Direita\n");
+    bispoRec(casas - 1);
+}
+
+
+// ================= BISPO (loops aninhados) =================
+void bispoLoop(int casas) {
+    for (int i = 0; i < casas; i++) {          // vertical
+        for (int j = 0; j < 1; j++) {          // horizontal
+            printf("Cima Direita\n");
+        }
+    }
+}
+
+
+// ================= CAVALO (loops complexos) =================
+void cavalo() {
+
+    // Movimento em "L": 2 para cima e 1 para direita
+
+    for (int i = 0; i < 3; i++) {
+
+        if (i < 2) {
+            printf("Cima\n");
+            continue; // continua o loop até completar 2 casas
+        }
+
+        // terceira iteração → direita
+        int j = 0;
+        while (j < 1) {
+            printf("Direita\n");
+            break; // encerra após 1 movimento
+        }
+    }
+}
+
+
+// ================= MAIN =================
+int main() {
+
+    int casas = 3;
+
+    printf("=== TORRE (Recursivo) ===\n");
+    torre(casas);
+
+    printf("\n=== RAINHA (Recursivo com direção) ===\n");
+    rainha(casas, 3); // diagonal
+
+    printf("\n=== BISPO (Recursivo) ===\n");
+    bispoRec(casas);
+
+    printf("\n=== BISPO (Loops Aninhados) ===\n");
+    bispoLoop(casas);
+
+    printf("\n=== CAVALO (Loops Complexos) ===\n");
+    cavalo();
+
+    return 0;
+}
